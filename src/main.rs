@@ -5,7 +5,7 @@ fn main() {
     let source_code = fs::read("C:\\Users\\metal\\Desktop\\untitled\\src\\brainCode.b")
         .expect("that shit broken dawg");//String::new();
 
-    let mut tape:[u8;1000] = [0;1000];
+    let mut tape:[i32;1000] = [0;1000];
 
     let mut pointer:usize = 0;
 
@@ -59,13 +59,13 @@ fn main() {
                 }
             }
             '.' => {
-                print!("{}",tape[pointer] as char);
+                print!("{}",i32_to_char(tape[pointer]));
                 code_index+=1;
             }
             ',' => {
                 let mut user_input = String::new();
                 io::stdin().read_line(&mut user_input).expect("you fucked up");
-                tape[pointer] = user_input.as_bytes()[0];
+                tape[pointer] = user_input.as_bytes()[0] as i32;
                 code_index+=1;
             }
             ' ' | '\n' | '\r' | '\t' => {
@@ -104,3 +104,14 @@ fn main() {
     }
 
 }
+
+fn i32_to_char(number: i32) -> char{
+    if number >= 0 && number < 128 {
+        let number:u8 = number as u8;
+        number as char
+    } else {
+        println!("value out of range for convertion");
+        exit(-1);
+    }
+}
+
