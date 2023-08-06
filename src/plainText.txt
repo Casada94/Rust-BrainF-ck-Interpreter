@@ -1,0 +1,2 @@
+Brain Fuck is not a proper encryption system, but rather a programming language that has been obfuscated.
+Encoding consists in writing machine code (input) that returns text as output.

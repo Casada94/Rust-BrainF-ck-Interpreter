@@ -1,9 +1,42 @@
 use std::{fs, io};
+use std::fs::File;
+use std::io::Write;
 use std::process::exit;
 
 fn main() {
+    interpret_brainfuck();
+    // generate_brainfuck();
+}
+
+fn generate_brainfuck(){
+    let file_input = fs::read("C:\\Users\\metal\\Desktop\\untitled\\src\\plainText.txt")
+        .expect("that shit broken dawg");
+    let mut output_file = File::create("C:\\Users\\metal\\Desktop\\untitled\\src\\GeneratedBrainCode.b").expect("that didnt work");
+    let mut output:String = String::new();
+    let mut current_value:u8 =0;
+    for character in file_input {
+        if current_value < character {
+            while current_value != character {
+                output.push('+');
+                current_value+=1;
+            }
+            output.push('.');
+        } else if current_value > character {
+            while current_value != character{
+                output.push('-');
+                current_value-=1;
+            }
+            output.push('.');
+        } else {
+            output.push('.');
+        }
+    }
+    output_file.write_all(output.as_bytes()).expect("couldnt write to file");
+}
+
+fn interpret_brainfuck(){
     let source_code = fs::read("C:\\Users\\metal\\Desktop\\untitled\\src\\brainCode.b")
-        .expect("that shit broken dawg");//String::new();
+        .expect("that shit broken dawg");
 
     let mut tape:[i32;1000] = [0;1000];
     let mut stack:Vec<usize> = Vec::new();
